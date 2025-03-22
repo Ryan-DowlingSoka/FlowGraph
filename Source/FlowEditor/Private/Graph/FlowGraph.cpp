@@ -440,6 +440,14 @@ void UFlowGraph::UnlockUpdates()
 {
 	bLockUpdates = false;
 	UpdateAsset();
+
+	for (UEdGraphNode* Node : Nodes)
+	{
+		if (UFlowGraphNode* FlowGraphNode = Cast<UFlowGraphNode>(Node))
+		{
+			FlowGraphNode->ReconstructNode();
+		}
+	}
 }
 
 void UFlowGraph::RecursivelySetupAllFlowGraphNodesForEditing(UFlowGraphNode& FromFlowGraphNode)
